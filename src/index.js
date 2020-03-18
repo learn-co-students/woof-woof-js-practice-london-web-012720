@@ -23,7 +23,7 @@ fetch(DOGS_URL)
    filterOff.remove();
   })
 
-
+  
 })
 })
 
@@ -43,14 +43,13 @@ fetch(DOGS_URL)
 
 
 function filterON(dogs){
-
+  
   filterBtn.addEventListener("click", event => {
-    divDogBar.innerText = ""
+  divDogBar.innerText = ""
+  
     filterOff.innerText = "Filter good dogs: ON"
     
-   dogs =  dogs.filter(dog =>  dog.isGoodDog === true )
-   
-   displayDogButtons(dogs);
+   displayDogButtons(dogs.filter(dog =>  dog.isGoodDog === true ));
    filterDiv.append(filterOff)
    filterBtn.remove();
 
@@ -81,11 +80,6 @@ function filterON(dogs){
 
 
 // takes an array of dog and from the fetch and passed to another function to display each dog
-
-
-
-
-
 
 
 
@@ -155,12 +149,12 @@ function createGoodBadButton(dog){
 
   const btn = document.createElement("button")
   btn.setAttribute("id", dog.id)
-  btn.innerText = dog.isGoodDog ? "Good Dog!" : "Bad dog!"
+  btn.innerText = dog.isGoodDog ?  "Make it Bad dog!" : " Make it Good Dog!"
 
   btn.addEventListener("click", event => {
     changeDogStatus(dog).then(d => {
       dog.isGoodDog = d.isGoodDog
-      btn.innerText = dog.isGoodDog ? "Good Dog!" : "Bad dog!"
+      btn.innerText = dog.isGoodDog ?  "Make it Bad dog!" : " Make it Good Dog!"
     })
   })
 
