@@ -2,21 +2,94 @@ DOGS_URL = "http://localhost:3000/pups"
 
 const divDogBar = document.querySelector("#dog-bar")
 const divDogInfo = document.querySelector("#dog-info")
+const filterBtn = document.querySelector("#good-dog-filter")
+const filterDiv = document.querySelector("#filter-div")
+const filterOff  = document.createElement("button")
+filterOff.setAttribute("id", "bad-dog-filter")
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
 fetch(DOGS_URL)
 .then(resp => resp.json())
 .then(dogs => {
-  displayDogButtons(dogs)
+  displayDogButtons(dogs);
+  filterON(dogs);
+ 
+  filterOff.addEventListener("click", event => {
+    divDogBar.innerText = ""
+    displayDogButtons(dogs);
+   filterDiv.append(filterBtn)
+   filterOff.remove();
+  })
 
-  // add event listener click to toggle button
-  // dosplayDogButtons(dogs.filter())
 
 })
 })
+
+
+// function filterOffdog(dogs){
+//   divDogBar.innerText = ""
+//    filterOff = document.querySelector("bad-dog-filter")
+
+  
+//   // dogs =  dogs.filter(dog =>  dog.isGoodDog === false )
+//   // displayDogButtons(dogs);
+//   // filterDiv.append(filterBtn)
+//   // filterOff.remove();
+  
+//   }
+  
+
+
+function filterON(dogs){
+
+  filterBtn.addEventListener("click", event => {
+    divDogBar.innerText = ""
+    filterOff.innerText = "Filter good dogs: ON"
+    
+   dogs =  dogs.filter(dog =>  dog.isGoodDog === true )
+   
+   displayDogButtons(dogs);
+   filterDiv.append(filterOff)
+   filterBtn.remove();
+
+  })
+
+}
+
+
+// function filterON(dogs){
+
+//   filterBtn.addEventListener("click", event => {
+//     divDogBar.innerText = ""
+//     filterOff.innerText = "Filter good dogs: ON"
+//     filterOff.setAttribute("id", "good-dog-filter")
+//    dogs =  dogs.filter(dog =>  dog.isGoodDog === true )
+   
+//    displayDogButtons(dogs);
+//    filterDiv.append(filterOff)
+//    filterBtn.remove();
+
+//   })
+// }
+
+
+
+
+
+
 
 // takes an array of dog and from the fetch and passed to another function to display each dog
+
+
+
+
+
+
+
+
+
 function displayDogButtons(dogs) {
   dogs.forEach(dog => {
 
@@ -54,8 +127,6 @@ function showDog(dog){
 
   divDogInfo.append(h2, img, btn)
 }
-
-
 
 
 
