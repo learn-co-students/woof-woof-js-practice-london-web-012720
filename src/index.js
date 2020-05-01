@@ -47,6 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
             dogImg.src = dog.image
 
             const dogButton = document.createElement("button")
+            dogButton.className = "good-bad-button"
+            dogButton.style.background = "yellow"
+            dogButton.style.width = "100px"
+            dogButton.style.height = "40px"
                 if (dog.isGoodDog === true)
                     dogButton.innerText = "GOOD"
                 else 
@@ -54,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dogButton.addEventListener("click", (event) => {
                 console.log(dog)
                 if (dogButton.innerText === "GOOD") {
-                fetch(`${DOGS_URL}/${dog.id}`, {
+                    fetch(`${DOGS_URL}/${dog.id}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
@@ -65,20 +69,46 @@ document.addEventListener("DOMContentLoaded", () => {
                     dogButton.innerText = "BAD"
                     }
                 else {
-                fetch(`${DOGS_URL}/${dog.id}`, {
-                    method: "PATCH",
-                    headers: {
+                    fetch(`${DOGS_URL}/${dog.id}`, {
+                        method: "PATCH",
+                        headers: {
                         "Content-Type": "application/json",
                         "Accept": "application/json"
-                    },
-                    body: JSON.stringify({isGoodDog: true}),
-                }),
-                    dogButton.innerText = "GOOD" 
+                        },
+                        body: JSON.stringify({isGoodDog: true}),
+                    }),
+                        dogButton.innerText = "GOOD" 
                 }
-            }),
-    
+            })
+
+            // The following is extra functionality:
+
+            // const likeButton = document.createElement("button")
+            // likeButton.className = "like-button"
+            // likeButton.style.background = "green"
+            // likeButton.style.width = "100px"
+            // likeButton.style.height = "40px"
+            // likeButton.innerText = `LIKES: ${dog.likes}`
+
+            // likeButton.addEventListener("click", () => {
+                
+            //     const counter = dog.likes
+            //     fetch(`${DOGS_URL}/${dog.id}`, {
+            //         method: "POST",
+            //         headers: {
+            //             "Content-Type": "application/json",
+            //             Accept: "application/json"
+            //         },
+            //         body: JSON.stringify({
+            //             likes: ++counter
+            //         })
+            //     }).then( resp => resp.json )
+            // })
+
+            
             dogInfo.innerHTML = ""
             dogInfo.append(dogImg, dogName, dogButton)
+            // dogInfo.appendChild(likeButton)
         })
 
         dogsName.append(span)
